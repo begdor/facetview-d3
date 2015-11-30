@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>FacetView</title>
+
+  <script type="text/javascript" src="vendor/jquery/1.7.1/jquery-1.7.1.min.js"></script>
+
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>  
+
+  <script type="text/javascript" src="vendor/linkify/1.0/jquery.linkify-1.0-min.js"></script>  
+  
+  <link rel="stylesheet" href="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
+  <script type="text/javascript" src="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
+
+  <script type="text/javascript" src="jquery.facetview.js"></script>
+
+  <link rel="stylesheet" href="css/facetview.css">
+
+  <script type="text/javascript">
+  
+jQuery(document).ready(function($) {
+  $('.facet-view-simple').each(function() {
+  $(this).facetview({
+    search_url: 'http://localhost:8983/solr/dv/select?',
+    search_index: 'solr',
+    datatype: 'json',
+     "facets": [
+        {'field':'state', 'display':'Location:'},
+        {'field':'gunCategoryHyphen', 'display':'Gun Category'}
+    ],
+    search_sortby: [{'display':'id', 'field':'id'},{'display':'keywords','field':'keywords'}],
+    searchbox_fieldselect: [{'field':'description', 'display':'description'},{'field':'title', 'display':'Title'}],
+    paging: {
+      from: 0,
+      size: 10
+    },
+    "result_display" : [
+          [{
+            "pre": "<h3><b></b><b>",
+            "field": "title",
+            "post": "</b></h3>"
+
+          }],
+          [{
+            "pre" : "<b>Gun Category:  </b><text>",
+            "field" : "gunCategoryHyphen",
+            "post" : "</text><br>"
+          }],
+          [{
+            "pre" : "<p><b>Gun Model: </b><br/>",
+            "field" : "gunModel",
+            "post" : "</p>"
+          }],
+          [{
+            "pre":"<p>Seller Rating: ",
+            "field":"sellerRating",
+            "post":"</p>"
+          }],
+          [{
+            "pre":"<p>Price: ",
+            "field":"price",
+            "post":"</p>"
+          }],
+          [{
+            "pre":"<p>Location: ",
+            "field":"location",
+            "post":"</p>"
+          }],
+          [{
+            "pre":"<p>Start Time: ",
+            "field":"startTime",
+            "post":""
+          }],
+          [{
+            "pre":"End Time: ",
+            "field":"endTime",
+            "post":"</p>"
+          }]
+    ],
+    
+    default_operator: "AND"
+  });
+  });
+});
+  </script>
+
+<style type="text/css">
+.facet-view-simple{
+    width:800px;
+    height:600px;
+    margin:20px auto 0 auto;
+}
+</style>
+
+</head>
+<body>
+
+    <div class="facet-view-simple"></div>
+
+</body>
+</html>
